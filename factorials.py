@@ -10,7 +10,6 @@ def factorial(n):
 
 
 if __name__ == '__main__':
-    # CALCULATE FACTORIALS AND ASSERT RESULTS
     for i in range(5):
         n = random.randint(1, 10)
         result = factorial(n)

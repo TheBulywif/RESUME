@@ -1,6 +1,4 @@
 import sys
-import threading
-import time
 
 import nmap
 from PyQt5.QtWidgets import QApplication, QMainWindow, QPlainTextEdit, QPushButton, QLineEdit, QLabel
@@ -10,7 +8,6 @@ class NmapScanner(QMainWindow):
     def __init__(self):
         super().__init__()
 
-        # Create the GUI components
         self.setWindowTitle("Nmap Scanner")
         self.resize(400, 300)
 
@@ -37,19 +34,14 @@ class NmapScanner(QMainWindow):
         self.show()
 
     def scan(self):
-        # Get the subnet from the input field
         subnet = self.subnet_input.text()
 
-        # Create a new Nmap scanner
         nm = nmap.PortScanner()
 
-        # Run the Nmap scan with the given subnet
         nm.scan(hosts=subnet, arguments='-sn')
 
-        # Get the list of hosts that were found
         hosts = nm.all_hosts()
 
-        # Output the results to the text area
         self.result_area.clear()
         if len(hosts) == 0:
             self.result_area.insertPlainText("No hosts found.\n")

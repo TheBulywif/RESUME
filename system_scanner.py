@@ -37,14 +37,12 @@ class SystemScanner(QtWidgets.QWidget):
 
         self.update_output("Scanning system...\n")
 
-        # Get PC name and IP address
         pc_name = socket.gethostname()
         ip_address = socket.gethostbyname(pc_name)
 
         self.update_output(f"PC Name: {pc_name}\n")
         self.update_output(f"IP Address: {ip_address}\n")
 
-        # Get drive information
         self.update_output("Getting drive information...\n")
 
         drives = psutil.disk_partitions()
@@ -59,7 +57,6 @@ class SystemScanner(QtWidgets.QWidget):
         for drive in drive_info:
             self.update_output(f"{drive[0]}: {drive[1]:.2f}% USED\n")
 
-        # Get RAM and CPU usage
         self.update_output("Getting RAM and CPU usage...\n")
 
         ram_info = psutil.virtual_memory()
@@ -70,14 +67,12 @@ class SystemScanner(QtWidgets.QWidget):
         self.update_output(f"RAM Usage: {ram_usage}%\n")
         self.update_output(f"CPU Usage: {cpu_usage}%\n")
 
-        # Get OS information
         self.update_output("Getting OS information...\n")
 
         os_info = platform.system() + ' ' + platform.release()
 
         self.update_output(f"OS: {os_info}\n")
 
-        # Create DataFrame and save to Excel file
         self.update_output("Saving system scan results to file...\n")
 
         data = {'PC Name': [pc_name], 'IP Address': [ip_address], 'OS': [os_info], 'RAM Usage %': [ram_usage],
@@ -88,7 +83,6 @@ class SystemScanner(QtWidgets.QWidget):
 
         df = pd.DataFrame(data)
 
-        # Save the scan results to an Excel file
         self.update_output("Saving scan results to an Excel file...")
         try:
             with pd.ExcelWriter(os.path.join(os.getcwd(), 'sys_can_res_{}.xlsx'.format(
@@ -113,7 +107,6 @@ class SystemScanner(QtWidgets.QWidget):
             self.update_output(
                 "Scan results saved to file: sys_can_res_{}.xlsx".format(datetime.now().strftime('%Y%m%d_%H%M%S')))
 
-        # Display the scan results in the text area
         self.update_output("\nScan Results:\n")
         for i in range(df.shape[0]):
             for j in range(df.shape[1]):

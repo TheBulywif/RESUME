@@ -14,12 +14,10 @@ def generate_primes(n):
 
 
 if __name__ == '__main__':
-    # GENERATE PRIMES
     primes = generate_primes(100)
     for prime in primes:
         print(prime)
 
-    # ASSERT
     assert primes[0] == 2
     assert primes[1] == 3
     assert primes[2] == 5
